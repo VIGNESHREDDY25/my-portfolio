@@ -39,6 +39,10 @@ function Navbar() {
     setIsMobileMenuOpen(false);
   };
 
+  const openResume = () => {
+    window.open('/resume.pdf', '_blank');
+  };
+
   return (
     <nav className={`navbar ${isScrolled ? 'scrolled' : ''}`}>
       <div className="nav-content">
@@ -53,20 +57,37 @@ function Navbar() {
         </div>
 
         <ul className={`nav-links ${isMobileMenuOpen ? 'mobile-open' : ''}`}>
-          {['Home', 'About', 'Skills', 'Projects', 'Contact'].map((item) => (
-            <li key={item}>
-              <a
-                href={`#${item.toLowerCase()}`}
-                className={activeSection === item.toLowerCase() ? 'active' : ''}
-                onClick={(e) => {
-                  e.preventDefault();
-                  scrollToSection(item.toLowerCase());
-                }}
-              >
-                {item}
-              </a>
-            </li>
-          ))}
+          {['Home', 'About', 'Skills', 'Projects', 'Resume', 'Contact'].map((item) => {
+            if (item === 'Resume') {
+              return (
+                <li key={item}>
+                  <a
+                    href="#"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      openResume();
+                    }}
+                  >
+                    {item}
+                  </a>
+                </li>
+              );
+            }
+            return (
+              <li key={item}>
+                <a
+                  href={`#${item.toLowerCase()}`}
+                  className={activeSection === item.toLowerCase() ? 'active' : ''}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    scrollToSection(item.toLowerCase());
+                  }}
+                >
+                  {item}
+                </a>
+              </li>
+            );
+          })}
         </ul>
       </div>
     </nav>
